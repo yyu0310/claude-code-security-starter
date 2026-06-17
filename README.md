@@ -1,5 +1,7 @@
 # claude-code-security-starter
 
+English | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md)
+
 A security starter pack for Claude Code beginners — CLAUDE.md rules + pre-built hooks that prevent credential leaks before they happen.
 
 ## Why

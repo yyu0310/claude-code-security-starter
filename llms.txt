@@ -1,0 +1,20 @@
+# claude-code-security-starter
+
+> Security starter pack for Claude Code. Provides CLAUDE.md rules and pre-built hooks that block credential leaks at the OS level before Claude can read sensitive files or push secrets to GitHub.
+
+## Core concept
+
+Claude Code sends file contents to Anthropic servers on every Read tool call. This pack adds two layers of defense:
+1. CLAUDE.md instructions — tell Claude what not to touch, including Bash-based workarounds
+2. OS-level hooks — hard blocks that fire before the tool call executes
+
+## Files
+
+- [README.md](README.md): English documentation — overview, quick start, file descriptions, hook mechanics
+- [README.zh-TW.md](README.zh-TW.md): Traditional Chinese documentation
+- [README.zh-CN.md](README.zh-CN.md): Simplified Chinese documentation
+- [CLAUDE.md](CLAUDE.md): AI installation instructions — when user says "install this", follow these steps to copy hooks, configure forbidden directories, merge settings, and optionally apply the CLAUDE.md template to their project
+- [CLAUDE.md.template](CLAUDE.md.template): Security rules template for users to paste into their own project CLAUDE.md. Contains: read scope definition, sensitive file blocklist, credential storage principles, forbidden directory rules, optional local DB protection pattern, optional company GitHub org protection, tool authorization 3-line format
+- [hooks/block_sensitive_read.sh](hooks/block_sensitive_read.sh): PreToolUse hook on Read tool. Configurable via FORBIDDEN_DIRS and FORBIDDEN_FILES arrays at top of file. Blocks .env files, .clasprc credentials, service-account.json, credentials.json, and any filename containing secret/credential/token/key. Exit 2 cancels the Read call.
+- [hooks/pre_push_safety.sh](hooks/pre_push_safety.sh): PreToolUse hook on Bash tool, fires only on git push commands. Scans changed files for sensitive filenames and diff content for 25+ API key regex patterns (AWS, Google, Anthropic, OpenAI, GitHub, GitLab, Stripe, SendGrid, Twilio, Slack, HuggingFace, Perplexity, Replicate, npm, Telegram Bot, Vault, PEM keys, DB connection strings, generic key=value patterns). Exit 2 cancels the push.
+- [settings.example.json](settings.example.json): Hook wiring config. Merge the hooks section into ~/.claude/settings.json (global) or .claude/settings.json (project-level).
