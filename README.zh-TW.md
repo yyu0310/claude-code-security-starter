@@ -4,6 +4,10 @@
 
 Claude Code 新手資安設定包。CLAUDE.md 規則 + 預建 hooks，在憑證外洩前就擋下來。
 
+## 先看這支影片（建議）
+
+[![Claude Code Hooks 教學](https://img.youtube.com/vi/2pM-7fBXc_M/maxresdefault.jpg)](https://www.youtube.com/watch?v=2pM-7fBXc_M)
+
 ## 為什麼需要這個
 
 Claude Code 每次讀取檔案，內容都會送到 Anthropic 伺服器。預設沒有任何防護，只要你（或 Claude）不小心問到，它就會去讀你的 `.env`、`.clasprc.json`，或任何檔名含 "secret" 的檔案。

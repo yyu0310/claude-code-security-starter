@@ -4,6 +4,10 @@
 
 Claude Code 新手安全配置包。CLAUDE.md 规则 + 预构建 hooks，在凭据泄露前就拦截。
 
+## 先看这个视频（建议）
+
+[![Claude Code Hooks 教程](https://img.youtube.com/vi/2pM-7fBXc_M/maxresdefault.jpg)](https://www.youtube.com/watch?v=2pM-7fBXc_M)
+
 ## 为什么需要这个
 
 Claude Code 每次读取文件，内容都会发送到 Anthropic 服务器。默认没有任何防护，只要你（或 Claude）不小心请求，它就会去读你的 `.env`、`.clasprc.json`，或任何文件名含 "secret" 的文件。
